@@ -1,0 +1,292 @@
+﻿<UserControl x:Class="Project1.UserControlProject1.TaiChinhUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Project1.UserControlProject1"
+             mc:Ignorable="d" 
+                          
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             DataContext="{DynamicResource TaiChinhVM}"
+             Background="#EFF2F7">
+    <Grid Margin="30 20 20 20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
+        </Grid.RowDefinitions>
+
+        <!--Page Title-->
+        <TextBlock  Grid.Row="0" Grid.ColumnSpan="2"
+            Text="Tài chính"  Style="{StaticResource Heading1}"/>
+        <Button Style="{StaticResource addButton}" Grid.Row="0" Grid.Column="1"
+                Command="{Binding UpdateDataCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Update" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                <TextBlock Text="Cập nhật tài chính"/>
+            </StackPanel>
+        </Button>
+
+        <!--Seprator-->
+        <Separator Height="1" Grid.Row="2" Grid.ColumnSpan="2" Background="#DAE2EA" Margin="0 -1 0 10"/>
+
+        <!--Tab buttons-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel  Orientation="Horizontal" Margin="0 10 0 0">
+                <ToggleButton Style="{StaticResource tabButton}" Content="Tổng quan" IsChecked="{Binding IsTongQuanChecked, Mode=TwoWay}"/>
+                <ToggleButton Style="{StaticResource tabButton}" Content="Kho trang trại" IsChecked="{Binding IsKhoChecked, Mode=TwoWay}"/>
+                <ToggleButton Style="{StaticResource tabButton}" Content="Nhân viên" IsChecked="{Binding IsNhanVienChecked, Mode=TwoWay}"/>
+                <ToggleButton Style="{StaticResource tabButton}" Content="Chuồng lợn" IsChecked="{Binding IsChuongLonChecked, Mode=TwoWay}"/>
+            </StackPanel>
+            <DatePicker
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="100"
+                materialDesign:HintAssist.Hint="Thời gian"
+                
+                SelectedDate="{Binding SelectedMonth}"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+        </Grid>
+        
+
+        <!--Tổng quan-->
+        <StackPanel Visibility="{Binding TongQuanVisibility}" Grid.Row="3">
+
+            <lvc:CartesianChart 
+                Height="235"
+                Series="{Binding MonthsDataSeries}" LegendLocation="Top">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding MonthLabels}"></lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis LabelFormatter="{Binding MonthFormatter}"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+
+            <Separator Height="1" Grid.Row="2" Grid.ColumnSpan="2" Background="#DAE2EA" Margin="10"/>
+
+            <lvc:CartesianChart 
+                  Height="235"
+                Series="{Binding ExpenseDataSeries}">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding Labels}"></lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </StackPanel>
+
+        <!--Chuồng lợn-->
+        <Grid Grid.Row="3" Margin="10 20" Visibility="{Binding ChuongLonVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Margin="0 0 50 0" Text="Chi phí chuồng lợn" FontSize="18" FontWeight="SemiBold" Foreground="#121518" />
+                <!--<ComboBox
+                    materialDesign:HintAssist.Hint="Chuồng lợn"
+                    IsEditable="False"
+                    Width="150"
+                    ItemsSource="{Binding PenList}"
+                    SelectedItem="{Binding PenSelectedItem, Mode=TwoWay}"
+                     >
+                </ComboBox>-->
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="10 30"  >
+
+                <DatePicker
+        materialDesign:HintAssist.Hint="Ngày"
+        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+        SelectedDate="{Binding OtherCostDate_TB, UpdateSourceTrigger=PropertyChanged}"    
+            />
+                <ComboBox              
+        materialDesign:HintAssist.Hint="Chuồng"
+        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+        IsEditable="True"
+        ItemsSource="{Binding PigPen_List}"
+        SelectedItem="{Binding PenSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        DisplayMemberPath="pen_name" />
+                <TextBox
+            materialDesign:HintAssist.Hint="Số tiền"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            Text="{Binding Price_TB, UpdateSourceTrigger=PropertyChanged}"
+                />
+                <TextBox
+        TextWrapping="Wrap"
+        VerticalAlignment="Stretch"
+        MinWidth="220"
+        AcceptsReturn="True"
+        VerticalScrollBarVisibility="Auto"
+        materialDesign:HintAssist.Hint="Ghi chú"
+        Height="100"
+        
+        Text="{Binding Decription_TB, UpdateSourceTrigger=PropertyChanged}"
+        />
+                <Button
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    Margin="10"
+    ToolTip="Resource name: MaterialDesignRaisedButton"
+    Command="{Binding NewPenExpenseCommand}"      
+    >
+                    _+ Thêm chi phí
+                </Button>
+
+            </StackPanel>
+
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.CanContentScroll="True"
+                      VerticalAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      Height="470"
+                      Grid.Column="1" Grid.Row="1"
+                      ItemsSource="{Binding PenExpense_List}" 
+                            >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding expense_date,StringFormat='{}{0:MM/dd/yyyy}'}" />
+                        <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding expense, StringFormat='{}{0:#,##0} VND'}" />
+                        <GridViewColumn Header="Chuồng" DisplayMemberBinding="{Binding PigPen.pen_name}" />
+                        <GridViewColumn Header="Ghi chú" DisplayMemberBinding="{Binding expense_description}" />
+                        <GridViewColumn Header="Tác vụ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}"
+                                            Command="{Binding DataContext.DeleteCostCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                            CommandParameter="{Binding}">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                <materialDesign:PackIcon Kind="Delete" Style="{StaticResource gridButtonIcon}"/>
+                                                <TextBlock>Xóa</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
+        </Grid>
+
+        <!--Nhân viên-->
+        <StackPanel Visibility="{Binding NhanVienVisibility}" Grid.Row="3" Margin="10 20">
+            <TextBlock Text="Lương nhân viên" FontSize="18" FontWeight="SemiBold" Foreground="#121518" />
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.CanContentScroll="True"
+                      VerticalAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      Height="470"
+                      ItemsSource="{Binding SalaryList}" 
+                >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding User.user_id}"/>
+                        <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding User.full_name}" />
+                        <GridViewColumn Header="Điện thoại" DisplayMemberBinding="{Binding User.phone}" />
+                        <GridViewColumn Header="Tháng" DisplayMemberBinding="{Binding month, StringFormat='{}{0:MM/yyyy}'}" />
+                        <GridViewColumn Header="Lương" DisplayMemberBinding="{Binding sum_salary, StringFormat='{}{0:#,##0} VND'}" />
+                        <GridViewColumn Header="Thưởng" DisplayMemberBinding="{Binding bonus, StringFormat='{}{0:#,##0} VND'}" />
+                        <GridViewColumn Header="Tác vụ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}"
+                                                 Command="{Binding DataContext.RewardCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                 CommandParameter="{Binding}">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="PlusOutline" Style="{StaticResource gridButtonIcon}"/>
+                                                <TextBlock>Thưởng</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Style="{StaticResource gridRemoveButton}"
+                                                 Command="{Binding DataContext.PunishCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                 CommandParameter="{Binding}">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="PlusOutline" Style="{StaticResource gridButtonIcon}"/>
+                                                <TextBlock>Phạt</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+        <!--Kho trang trại-->
+        <StackPanel Visibility="{Binding KhoVisibility}" Grid.Row="3" Orientation="Horizontal">
+            <StackPanel Margin="10 20">
+                <TextBlock Text="Chi phí nhập thức ăn" FontSize="18" FontWeight="SemiBold" Foreground="#121518" />
+
+                <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" 
+              ScrollViewer.CanContentScroll="True"
+              VerticalAlignment="Stretch"
+              VerticalContentAlignment="Stretch"
+                     Height="470"
+              ItemsSource="{Binding FoodExpenseList}" 
+                    >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding transaction_date,StringFormat='{}{0:MM/dd/yyyy}'}" />
+                            <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding Food.food_name}" />
+                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding quantity}" />
+                            <GridViewColumn Header="Số tiền" DisplayMemberBinding="{Binding expense ,StringFormat='{}{0:#,##0} VND'}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel  Margin="10 20">
+                <TextBlock Text="Chi phí nhập thuốc" FontSize="18" FontWeight="SemiBold" Foreground="#121518" />
+
+                <ListView ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                      ScrollViewer.CanContentScroll="True"
+                      Height="470"
+                      ItemsSource="{Binding MedicineExpenseList}" 
+            >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding transaction_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                            <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding Medicine.medicine_name}" />
+                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding quantity}" />
+                            <GridViewColumn Header="Số tiền" DisplayMemberBinding="{Binding expense,StringFormat='{}{0:#,##0} VND'}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

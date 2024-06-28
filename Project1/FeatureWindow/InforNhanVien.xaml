@@ -1,0 +1,175 @@
+﻿<Window x:Class="Project1.FeatureWindow.InforNhanVien"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project1.FeatureWindow"
+        mc:Ignorable="d"
+        Title="InfoNhanVien" Height="600" Width="600"
+
+        xmlns:uc="clr-namespace:Project1.UserControlProject1" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen" 
+        AllowsTransparency="True"
+        Background="Transparent" 
+        WindowStyle="None"
+        Name="InfoNV"
+        
+        DataContext="{DynamicResource InforNhanVienVM}"
+        >
+    <Border CornerRadius="30" Background="#EFF2F7" BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                
+                <RowDefinition Height="0.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="30 30 0 0" 
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#007F73">
+                <StackPanel Margin="0 30 0 0">
+                    <TextBlock
+                        FontSize="35" 
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        >Thông tin nhân viên</TextBlock>
+                    <Border Margin="0 0 0 -90" Background="#007F73"
+                            Height="100" Width="100"
+                            CornerRadius="80">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                ShadowDepth="4"
+                                Direction="330"
+                                Color="#007F73"
+                                Opacity="0.5"
+                                BlurRadius="4">
+                            </DropShadowEffect>
+                        </Border.Effect>
+                        <materialDesign:PackIcon  
+                        Height="100" Width="100" 
+                        Foreground="White"  
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Kind="AccountCircle"
+                      />
+                    </Border>
+                    
+                </StackPanel>
+                
+            </Border>
+            
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="30 40 30 0"  >
+                <TextBlock FontSize="25" FontWeight="Bold">
+                    Thông tin cá nhân
+                </TextBlock>
+                <TextBox
+                    materialDesign:HintAssist.Hint="Họ và tên"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Fullname_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                
+                <TextBox
+                    materialDesign:HintAssist.Hint="Địa chỉ"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Address_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                <DatePicker
+                    materialDesign:HintAssist.Hint="Ngày sinh"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                    SelectedDate="{Binding Birth_TB, UpdateSourceTrigger=PropertyChanged}"    
+                        />
+                <ComboBox              
+                    materialDesign:HintAssist.Hint="Nhân viên"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    IsEditable="True"
+                    ItemsSource="{Binding RoleList}"
+                    SelectedItem="{Binding RoleSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="role_name" />
+
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="30 40 30 0">
+                <TextBlock FontSize="25" FontWeight="Bold">
+                    Thông tin liên hệ
+                </TextBlock>
+                <TextBox
+                    materialDesign:HintAssist.Hint="Email"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Email_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                <TextBox
+                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Phone_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                
+            </StackPanel>
+            <StackPanel Visibility="{Binding AccountVisibility}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <TextBlock FontSize="25" FontWeight="Bold" HorizontalAlignment="Center">
+                    Thông tin tài khoản
+                </TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="30 0">
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Tên đăng nhập"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding Username_TB, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Mật khẩu"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding Password_TB, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="30 0">
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Câu hỏi bảo mật"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding Security_TB, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Câu trả lời"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                            Text="{Binding Answer_TB, UpdateSourceTrigger=PropertyChanged}"
+                                />
+                    </StackPanel>
+                </Grid>
+                
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="0" 
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+
+                <Button
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Width="130"
+                    Margin="20 0"
+                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    Command="{Binding SaveCommand}"   
+                    CommandParameter="{Binding ElementName=InfoNV}"
+                    >
+                    _Lưu thông tin
+                </Button>
+                <Button
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Width="130"
+                    Margin="20 0"
+                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    Command="{Binding CloseWindowCommand}"
+                    CommandParameter="{Binding ElementName=InfoNV}"
+                    >
+                    _Hủy bỏ
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

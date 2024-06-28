@@ -1,0 +1,1426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DoAn_1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EmployeeShifts">
+          <Key>
+            <PropertyRef Name="employee_shift_id" />
+          </Key>
+          <Property Name="employee_shift_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="assigneduser_id" Type="int" />
+          <Property Name="shift_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pig_id" Type="int" />
+          <Property Name="event_type" Type="int" />
+          <Property Name="event_done" Type="bit" />
+          <Property Name="event_date" Type="date" />
+          <Property Name="event_next_date" Type="date" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Foods">
+          <Key>
+            <PropertyRef Name="food_id" />
+          </Key>
+          <Property Name="food_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="food_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="supplier" Type="nvarchar" MaxLength="255" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="unit_id" Type="int" />
+          <Property Name="price" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FoodTransactions">
+          <Key>
+            <PropertyRef Name="transaction_id" />
+          </Key>
+          <Property Name="transaction_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Food_id" Type="int" />
+          <Property Name="transaction_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="transaction_date" Type="datetime2" Precision="7" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="expense" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="pig_pen" Type="int" />
+        </EntityType>
+        <EntityType Name="Medicines">
+          <Key>
+            <PropertyRef Name="medicine_id" />
+          </Key>
+          <Property Name="medicine_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="medicine_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="supplier" Type="nvarchar" MaxLength="255" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="unit_id" Type="int" />
+          <Property Name="price" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="MedicineTransactions">
+          <Key>
+            <PropertyRef Name="transaction_id" />
+          </Key>
+          <Property Name="transaction_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="medicine_id" Type="int" />
+          <Property Name="transaction_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="transaction_date" Type="datetime2" Precision="7" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="expense" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="pig_pen" Type="int" />
+        </EntityType>
+        <EntityType Name="MonthlyFinancialRecord">
+          <Key>
+            <PropertyRef Name="record_id" />
+          </Key>
+          <Property Name="record_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="record_month" Type="date" Nullable="false" />
+          <Property Name="pig_sell" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="medicine_cost" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="food_cost" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="employee_cost" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="other_cost" Type="decimal" Precision="14" Scale="0" />
+        </EntityType>
+        <EntityType Name="PenExpense">
+          <Key>
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="expense_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="expense_description" Type="nvarchar" MaxLength="50" />
+          <Property Name="pig_sell" Type="bit" />
+          <Property Name="expense" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="expense_date" Type="datetime" Nullable="false" />
+          <Property Name="pen_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Pig_Events">
+          <Key>
+            <PropertyRef Name="pig_event_id" />
+          </Key>
+          <Property Name="pig_event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pig_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="event_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="event_period" Type="int" />
+        </EntityType>
+        <EntityType Name="PigMeasurements">
+          <Key>
+            <PropertyRef Name="measurement_id" />
+          </Key>
+          <Property Name="measurement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pig_id" Type="int" />
+          <Property Name="weight" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="length" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="date_of_measurement" Type="date" />
+        </EntityType>
+        <EntityType Name="PigPens">
+          <Key>
+            <PropertyRef Name="pen_id" />
+          </Key>
+          <Property Name="pen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pen_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Pigs">
+          <Key>
+            <PropertyRef Name="pig_id" />
+          </Key>
+          <Property Name="pig_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pig_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="origin" Type="nvarchar" MaxLength="255" />
+          <Property Name="date_of_arrival" Type="date" />
+          <Property Name="health_status" Type="nvarchar" MaxLength="255" />
+          <Property Name="pen_id" Type="int" />
+          <Property Name="MonthsOld" Type="int" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="wage" Type="decimal" Precision="14" Scale="0" />
+        </EntityType>
+        <EntityType Name="Salary_history">
+          <Key>
+            <PropertyRef Name="salary_history_id" />
+          </Key>
+          <Property Name="salary_history_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="month" Type="date" />
+          <Property Name="bonus" Type="decimal" Precision="14" Scale="0" />
+          <Property Name="sum_salary" Type="decimal" Precision="14" Scale="0" />
+        </EntityType>
+        <EntityType Name="Shifts">
+          <Key>
+            <PropertyRef Name="shift_id" />
+          </Key>
+          <Property Name="shift_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="start_time" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="end_time" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SickPigs">
+          <Key>
+            <PropertyRef Name="sickpig_id" />
+          </Key>
+          <Property Name="sickpig_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pig_id" Type="int" />
+          <Property Name="disease_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="disease_done" Type="bit" />
+          <Property Name="detection_date" Type="date" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="task_id" />
+          </Key>
+          <Property Name="task_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="task_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TaskShifts">
+          <Key>
+            <PropertyRef Name="task_shift_id" />
+          </Key>
+          <Property Name="task_shift_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="task_id" Type="int" />
+          <Property Name="shift_id" Type="int" />
+          <Property Name="complete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="unit_id" />
+          </Key>
+          <Property Name="unit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="unit_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="255" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" />
+          <Property Name="full_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="birth" Type="date" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="user_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="security_question" Type="nvarchar" MaxLength="255" />
+          <Property Name="security_answer" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Vacine_history">
+          <Key>
+            <PropertyRef Name="vacine_history_id" />
+          </Key>
+          <Property Name="vacine_history_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vacine_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="vacine_date" Type="datetime2" Precision="7" />
+          <Property Name="require_count" Type="int" />
+          <Property Name="vacine_count" Type="int" />
+          <Property Name="vacine_done" Type="bit" />
+          <Property Name="vacine_duration" Type="int" />
+          <Property Name="vacine_next_date" Type="datetime2" Precision="7" StoreGeneratedPattern="Computed" />
+          <Property Name="pig_id" Type="int" />
+        </EntityType>
+        <Association Name="FK__EmployeeS__assig__4AB81AF0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="EmployeeShifts" Type="Self.EmployeeShifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="EmployeeShifts">
+              <PropertyRef Name="assigneduser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeS__shift__4BAC3F29">
+          <End Role="Shifts" Type="Self.Shifts" Multiplicity="0..1" />
+          <End Role="EmployeeShifts" Type="Self.EmployeeShifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shifts">
+              <PropertyRef Name="shift_id" />
+            </Principal>
+            <Dependent Role="EmployeeShifts">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events__event_ty__74AE54BC">
+          <End Role="Pig_Events" Type="Self.Pig_Events" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pig_Events">
+              <PropertyRef Name="pig_event_id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="event_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events__pig_id__73BA3083">
+          <End Role="Pigs" Type="Self.Pigs" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pigs">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Foods__unit_id__571DF1D5">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Foods" Type="Self.Foods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="unit_id" />
+            </Principal>
+            <Dependent Role="Foods">
+              <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FoodTrans__Food___60A75C0F">
+          <End Role="Foods" Type="Self.Foods" Multiplicity="0..1" />
+          <End Role="FoodTransactions" Type="Self.FoodTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foods">
+              <PropertyRef Name="food_id" />
+            </Principal>
+            <Dependent Role="FoodTransactions">
+              <PropertyRef Name="Food_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FoodTrans__pig_p__5FB337D6">
+          <End Role="PigPens" Type="Self.PigPens" Multiplicity="0..1" />
+          <End Role="FoodTransactions" Type="Self.FoodTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPens">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="FoodTransactions">
+              <PropertyRef Name="pig_pen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicines__unit___5441852A">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Medicines" Type="Self.Medicines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="unit_id" />
+            </Principal>
+            <Dependent Role="Medicines">
+              <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MedicineT__medic__5BE2A6F2">
+          <End Role="Medicines" Type="Self.Medicines" Multiplicity="0..1" />
+          <End Role="MedicineTransactions" Type="Self.MedicineTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicines">
+              <PropertyRef Name="medicine_id" />
+            </Principal>
+            <Dependent Role="MedicineTransactions">
+              <PropertyRef Name="medicine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MedicineT__pig_p__5AEE82B9">
+          <End Role="PigPens" Type="Self.PigPens" Multiplicity="0..1" />
+          <End Role="MedicineTransactions" Type="Self.MedicineTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPens">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="MedicineTransactions">
+              <PropertyRef Name="pig_pen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PenExpens__pen_i__5165187F">
+          <End Role="PigPens" Type="Self.PigPens" Multiplicity="0..1" />
+          <End Role="PenExpense" Type="Self.PenExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPens">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="PenExpense">
+              <PropertyRef Name="pen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PigMeasur__pig_i__6B24EA82">
+          <End Role="Pigs" Type="Self.Pigs" Multiplicity="0..1" />
+          <End Role="PigMeasurements" Type="Self.PigMeasurements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pigs">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="PigMeasurements">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pigs__pen_id__6383C8BA">
+          <End Role="PigPens" Type="Self.PigPens" Multiplicity="0..1" />
+          <End Role="Pigs" Type="Self.Pigs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPens">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="Pigs">
+              <PropertyRef Name="pen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Salary_hi__user___3F466844">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Salary_history" Type="Self.Salary_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Salary_history">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SickPigs__pig_id__6EF57B66">
+          <End Role="Pigs" Type="Self.Pigs" Multiplicity="0..1" />
+          <End Role="SickPigs" Type="Self.SickPigs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pigs">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="SickPigs">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskShift__shift__47DBAE45">
+          <End Role="Shifts" Type="Self.Shifts" Multiplicity="0..1" />
+          <End Role="TaskShifts" Type="Self.TaskShifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shifts">
+              <PropertyRef Name="shift_id" />
+            </Principal>
+            <Dependent Role="TaskShifts">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskShift__task___46E78A0C">
+          <End Role="Task" Type="Self.Task" Multiplicity="0..1" />
+          <End Role="TaskShifts" Type="Self.TaskShifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="task_id" />
+            </Principal>
+            <Dependent Role="TaskShifts">
+              <PropertyRef Name="task_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__role_id__3C69FB99">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vacine_hi__pig_i__68487DD7">
+          <End Role="Pigs" Type="Self.Pigs" Multiplicity="0..1" />
+          <End Role="Vacine_history" Type="Self.Vacine_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pigs">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="Vacine_history">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DoAn_1ModelStoreContainer">
+          <EntitySet Name="EmployeeShifts" EntityType="Self.EmployeeShifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foods" EntityType="Self.Foods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodTransactions" EntityType="Self.FoodTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicines" EntityType="Self.Medicines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicineTransactions" EntityType="Self.MedicineTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlyFinancialRecord" EntityType="Self.MonthlyFinancialRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PenExpense" EntityType="Self.PenExpense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pig_Events" EntityType="Self.Pig_Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PigMeasurements" EntityType="Self.PigMeasurements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PigPens" EntityType="Self.PigPens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pigs" EntityType="Self.Pigs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary_history" EntityType="Self.Salary_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shifts" EntityType="Self.Shifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SickPigs" EntityType="Self.SickPigs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskShifts" EntityType="Self.TaskShifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vacine_history" EntityType="Self.Vacine_history" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__EmployeeS__assig__4AB81AF0" Association="Self.FK__EmployeeS__assig__4AB81AF0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="EmployeeShifts" EntitySet="EmployeeShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeS__shift__4BAC3F29" Association="Self.FK__EmployeeS__shift__4BAC3F29">
+            <End Role="Shifts" EntitySet="Shifts" />
+            <End Role="EmployeeShifts" EntitySet="EmployeeShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events__event_ty__74AE54BC" Association="Self.FK__Events__event_ty__74AE54BC">
+            <End Role="Pig_Events" EntitySet="Pig_Events" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events__pig_id__73BA3083" Association="Self.FK__Events__pig_id__73BA3083">
+            <End Role="Pigs" EntitySet="Pigs" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Foods__unit_id__571DF1D5" Association="Self.FK__Foods__unit_id__571DF1D5">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Foods" EntitySet="Foods" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FoodTrans__Food___60A75C0F" Association="Self.FK__FoodTrans__Food___60A75C0F">
+            <End Role="Foods" EntitySet="Foods" />
+            <End Role="FoodTransactions" EntitySet="FoodTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FoodTrans__pig_p__5FB337D6" Association="Self.FK__FoodTrans__pig_p__5FB337D6">
+            <End Role="PigPens" EntitySet="PigPens" />
+            <End Role="FoodTransactions" EntitySet="FoodTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicines__unit___5441852A" Association="Self.FK__Medicines__unit___5441852A">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Medicines" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineT__medic__5BE2A6F2" Association="Self.FK__MedicineT__medic__5BE2A6F2">
+            <End Role="Medicines" EntitySet="Medicines" />
+            <End Role="MedicineTransactions" EntitySet="MedicineTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineT__pig_p__5AEE82B9" Association="Self.FK__MedicineT__pig_p__5AEE82B9">
+            <End Role="PigPens" EntitySet="PigPens" />
+            <End Role="MedicineTransactions" EntitySet="MedicineTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PenExpens__pen_i__5165187F" Association="Self.FK__PenExpens__pen_i__5165187F">
+            <End Role="PigPens" EntitySet="PigPens" />
+            <End Role="PenExpense" EntitySet="PenExpense" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PigMeasur__pig_i__6B24EA82" Association="Self.FK__PigMeasur__pig_i__6B24EA82">
+            <End Role="Pigs" EntitySet="Pigs" />
+            <End Role="PigMeasurements" EntitySet="PigMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pigs__pen_id__6383C8BA" Association="Self.FK__Pigs__pen_id__6383C8BA">
+            <End Role="PigPens" EntitySet="PigPens" />
+            <End Role="Pigs" EntitySet="Pigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Salary_hi__user___3F466844" Association="Self.FK__Salary_hi__user___3F466844">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Salary_history" EntitySet="Salary_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SickPigs__pig_id__6EF57B66" Association="Self.FK__SickPigs__pig_id__6EF57B66">
+            <End Role="Pigs" EntitySet="Pigs" />
+            <End Role="SickPigs" EntitySet="SickPigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskShift__shift__47DBAE45" Association="Self.FK__TaskShift__shift__47DBAE45">
+            <End Role="Shifts" EntitySet="Shifts" />
+            <End Role="TaskShifts" EntitySet="TaskShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskShift__task___46E78A0C" Association="Self.FK__TaskShift__task___46E78A0C">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="TaskShifts" EntitySet="TaskShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__role_id__3C69FB99" Association="Self.FK__Users__role_id__3C69FB99">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vacine_hi__pig_i__68487DD7" Association="Self.FK__Vacine_hi__pig_i__68487DD7">
+            <End Role="Pigs" EntitySet="Pigs" />
+            <End Role="Vacine_history" EntitySet="Vacine_history" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DoAn_1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DoAn_1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmployeeShifts" EntityType="DoAn_1Model.EmployeeShift" />
+          <EntitySet Name="Events" EntityType="DoAn_1Model.Event" />
+          <EntitySet Name="Foods" EntityType="DoAn_1Model.Food" />
+          <EntitySet Name="FoodTransactions" EntityType="DoAn_1Model.FoodTransaction" />
+          <EntitySet Name="Medicines" EntityType="DoAn_1Model.Medicine" />
+          <EntitySet Name="MedicineTransactions" EntityType="DoAn_1Model.MedicineTransaction" />
+          <EntitySet Name="MonthlyFinancialRecords" EntityType="DoAn_1Model.MonthlyFinancialRecord" />
+          <EntitySet Name="PenExpenses" EntityType="DoAn_1Model.PenExpense" />
+          <EntitySet Name="Pig_Events" EntityType="DoAn_1Model.Pig_Events" />
+          <EntitySet Name="PigMeasurements" EntityType="DoAn_1Model.PigMeasurement" />
+          <EntitySet Name="PigPens" EntityType="DoAn_1Model.PigPen" />
+          <EntitySet Name="Pigs" EntityType="DoAn_1Model.Pig" />
+          <EntitySet Name="Roles" EntityType="DoAn_1Model.Role" />
+          <EntitySet Name="Salary_history" EntityType="DoAn_1Model.Salary_history" />
+          <EntitySet Name="Shifts" EntityType="DoAn_1Model.Shift" />
+          <EntitySet Name="SickPigs" EntityType="DoAn_1Model.SickPig" />
+          <EntitySet Name="Tasks" EntityType="DoAn_1Model.Task" />
+          <EntitySet Name="TaskShifts" EntityType="DoAn_1Model.TaskShift" />
+          <EntitySet Name="Units" EntityType="DoAn_1Model.Unit" />
+          <EntitySet Name="Users" EntityType="DoAn_1Model.User" />
+          <EntitySet Name="Vacine_history" EntityType="DoAn_1Model.Vacine_history" />
+          <AssociationSet Name="FK__EmployeeS__assig__4AB81AF0" Association="DoAn_1Model.FK__EmployeeS__assig__4AB81AF0">
+            <End Role="User" EntitySet="Users" />
+            <End Role="EmployeeShift" EntitySet="EmployeeShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeS__shift__4BAC3F29" Association="DoAn_1Model.FK__EmployeeS__shift__4BAC3F29">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="EmployeeShift" EntitySet="EmployeeShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events__event_ty__74AE54BC" Association="DoAn_1Model.FK__Events__event_ty__74AE54BC">
+            <End Role="Pig_Events" EntitySet="Pig_Events" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events__pig_id__73BA3083" Association="DoAn_1Model.FK__Events__pig_id__73BA3083">
+            <End Role="Pig" EntitySet="Pigs" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Foods__unit_id__571DF1D5" Association="DoAn_1Model.FK__Foods__unit_id__571DF1D5">
+            <End Role="Unit" EntitySet="Units" />
+            <End Role="Food" EntitySet="Foods" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FoodTrans__Food___60A75C0F" Association="DoAn_1Model.FK__FoodTrans__Food___60A75C0F">
+            <End Role="Food" EntitySet="Foods" />
+            <End Role="FoodTransaction" EntitySet="FoodTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FoodTrans__pig_p__5FB337D6" Association="DoAn_1Model.FK__FoodTrans__pig_p__5FB337D6">
+            <End Role="PigPen" EntitySet="PigPens" />
+            <End Role="FoodTransaction" EntitySet="FoodTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicines__unit___5441852A" Association="DoAn_1Model.FK__Medicines__unit___5441852A">
+            <End Role="Unit" EntitySet="Units" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineT__medic__5BE2A6F2" Association="DoAn_1Model.FK__MedicineT__medic__5BE2A6F2">
+            <End Role="Medicine" EntitySet="Medicines" />
+            <End Role="MedicineTransaction" EntitySet="MedicineTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineT__pig_p__5AEE82B9" Association="DoAn_1Model.FK__MedicineT__pig_p__5AEE82B9">
+            <End Role="PigPen" EntitySet="PigPens" />
+            <End Role="MedicineTransaction" EntitySet="MedicineTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PenExpens__pen_i__5165187F" Association="DoAn_1Model.FK__PenExpens__pen_i__5165187F">
+            <End Role="PigPen" EntitySet="PigPens" />
+            <End Role="PenExpense" EntitySet="PenExpenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PigMeasur__pig_i__6B24EA82" Association="DoAn_1Model.FK__PigMeasur__pig_i__6B24EA82">
+            <End Role="Pig" EntitySet="Pigs" />
+            <End Role="PigMeasurement" EntitySet="PigMeasurements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pigs__pen_id__6383C8BA" Association="DoAn_1Model.FK__Pigs__pen_id__6383C8BA">
+            <End Role="PigPen" EntitySet="PigPens" />
+            <End Role="Pig" EntitySet="Pigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SickPigs__pig_id__6EF57B66" Association="DoAn_1Model.FK__SickPigs__pig_id__6EF57B66">
+            <End Role="Pig" EntitySet="Pigs" />
+            <End Role="SickPig" EntitySet="SickPigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vacine_hi__pig_i__68487DD7" Association="DoAn_1Model.FK__Vacine_hi__pig_i__68487DD7">
+            <End Role="Pig" EntitySet="Pigs" />
+            <End Role="Vacine_history" EntitySet="Vacine_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__role_id__3C69FB99" Association="DoAn_1Model.FK__Users__role_id__3C69FB99">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Salary_hi__user___3F466844" Association="DoAn_1Model.FK__Salary_hi__user___3F466844">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Salary_history" EntitySet="Salary_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskShift__shift__47DBAE45" Association="DoAn_1Model.FK__TaskShift__shift__47DBAE45">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="TaskShift" EntitySet="TaskShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskShift__task___46E78A0C" Association="DoAn_1Model.FK__TaskShift__task___46E78A0C">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="TaskShift" EntitySet="TaskShifts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EmployeeShift">
+          <Key>
+            <PropertyRef Name="employee_shift_id" />
+          </Key>
+          <Property Name="employee_shift_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="assigneduser_id" Type="Int32" />
+          <Property Name="shift_id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DoAn_1Model.FK__EmployeeS__assig__4AB81AF0" FromRole="EmployeeShift" ToRole="User" />
+          <NavigationProperty Name="Shift" Relationship="DoAn_1Model.FK__EmployeeS__shift__4BAC3F29" FromRole="EmployeeShift" ToRole="Shift" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pig_id" Type="Int32" />
+          <Property Name="event_type" Type="Int32" />
+          <Property Name="event_done" Type="Boolean" />
+          <Property Name="event_date" Type="DateTime" Precision="0" />
+          <Property Name="event_next_date" Type="DateTime" Precision="0" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pig_Events" Relationship="DoAn_1Model.FK__Events__event_ty__74AE54BC" FromRole="Event" ToRole="Pig_Events" />
+          <NavigationProperty Name="Pig" Relationship="DoAn_1Model.FK__Events__pig_id__73BA3083" FromRole="Event" ToRole="Pig" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="food_id" />
+          </Key>
+          <Property Name="food_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="food_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="unit_id" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Unit" Relationship="DoAn_1Model.FK__Foods__unit_id__571DF1D5" FromRole="Food" ToRole="Unit" />
+          <NavigationProperty Name="FoodTransactions" Relationship="DoAn_1Model.FK__FoodTrans__Food___60A75C0F" FromRole="Food" ToRole="FoodTransaction" />
+        </EntityType>
+        <EntityType Name="FoodTransaction">
+          <Key>
+            <PropertyRef Name="transaction_id" />
+          </Key>
+          <Property Name="transaction_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Food_id" Type="Int32" />
+          <Property Name="transaction_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="transaction_date" Type="DateTime" Precision="7" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="expense" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="pig_pen" Type="Int32" />
+          <NavigationProperty Name="Food" Relationship="DoAn_1Model.FK__FoodTrans__Food___60A75C0F" FromRole="FoodTransaction" ToRole="Food" />
+          <NavigationProperty Name="PigPen" Relationship="DoAn_1Model.FK__FoodTrans__pig_p__5FB337D6" FromRole="FoodTransaction" ToRole="PigPen" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="medicine_id" />
+          </Key>
+          <Property Name="medicine_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="medicine_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="unit_id" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Unit" Relationship="DoAn_1Model.FK__Medicines__unit___5441852A" FromRole="Medicine" ToRole="Unit" />
+          <NavigationProperty Name="MedicineTransactions" Relationship="DoAn_1Model.FK__MedicineT__medic__5BE2A6F2" FromRole="Medicine" ToRole="MedicineTransaction" />
+        </EntityType>
+        <EntityType Name="MedicineTransaction">
+          <Key>
+            <PropertyRef Name="transaction_id" />
+          </Key>
+          <Property Name="transaction_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="medicine_id" Type="Int32" />
+          <Property Name="transaction_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="transaction_date" Type="DateTime" Precision="7" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="expense" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="pig_pen" Type="Int32" />
+          <NavigationProperty Name="Medicine" Relationship="DoAn_1Model.FK__MedicineT__medic__5BE2A6F2" FromRole="MedicineTransaction" ToRole="Medicine" />
+          <NavigationProperty Name="PigPen" Relationship="DoAn_1Model.FK__MedicineT__pig_p__5AEE82B9" FromRole="MedicineTransaction" ToRole="PigPen" />
+        </EntityType>
+        <EntityType Name="MonthlyFinancialRecord">
+          <Key>
+            <PropertyRef Name="record_id" />
+          </Key>
+          <Property Name="record_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="record_month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="pig_sell" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="medicine_cost" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="food_cost" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="employee_cost" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="other_cost" Type="Decimal" Precision="14" Scale="0" />
+        </EntityType>
+        <EntityType Name="PenExpense">
+          <Key>
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="expense_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="expense_description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pig_sell" Type="Boolean" />
+          <Property Name="expense" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="expense_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="pen_id" Type="Int32" />
+          <NavigationProperty Name="PigPen" Relationship="DoAn_1Model.FK__PenExpens__pen_i__5165187F" FromRole="PenExpense" ToRole="PigPen" />
+        </EntityType>
+        <EntityType Name="Pig_Events">
+          <Key>
+            <PropertyRef Name="pig_event_id" />
+          </Key>
+          <Property Name="pig_event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pig_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="event_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="event_period" Type="Int32" />
+          <NavigationProperty Name="Events" Relationship="DoAn_1Model.FK__Events__event_ty__74AE54BC" FromRole="Pig_Events" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="PigMeasurement">
+          <Key>
+            <PropertyRef Name="measurement_id" />
+          </Key>
+          <Property Name="measurement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pig_id" Type="Int32" />
+          <Property Name="weight" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="length" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="date_of_measurement" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Pig" Relationship="DoAn_1Model.FK__PigMeasur__pig_i__6B24EA82" FromRole="PigMeasurement" ToRole="Pig" />
+        </EntityType>
+        <EntityType Name="PigPen">
+          <Key>
+            <PropertyRef Name="pen_id" />
+          </Key>
+          <Property Name="pen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pen_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FoodTransactions" Relationship="DoAn_1Model.FK__FoodTrans__pig_p__5FB337D6" FromRole="PigPen" ToRole="FoodTransaction" />
+          <NavigationProperty Name="MedicineTransactions" Relationship="DoAn_1Model.FK__MedicineT__pig_p__5AEE82B9" FromRole="PigPen" ToRole="MedicineTransaction" />
+          <NavigationProperty Name="PenExpenses" Relationship="DoAn_1Model.FK__PenExpens__pen_i__5165187F" FromRole="PigPen" ToRole="PenExpense" />
+          <NavigationProperty Name="Pigs" Relationship="DoAn_1Model.FK__Pigs__pen_id__6383C8BA" FromRole="PigPen" ToRole="Pig" />
+        </EntityType>
+        <EntityType Name="Pig">
+          <Key>
+            <PropertyRef Name="pig_id" />
+          </Key>
+          <Property Name="pig_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pig_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="origin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="date_of_arrival" Type="DateTime" Precision="0" />
+          <Property Name="health_status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="pen_id" Type="Int32" />
+          <Property Name="MonthsOld" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Events" Relationship="DoAn_1Model.FK__Events__pig_id__73BA3083" FromRole="Pig" ToRole="Event" />
+          <NavigationProperty Name="PigMeasurements" Relationship="DoAn_1Model.FK__PigMeasur__pig_i__6B24EA82" FromRole="Pig" ToRole="PigMeasurement" />
+          <NavigationProperty Name="PigPen" Relationship="DoAn_1Model.FK__Pigs__pen_id__6383C8BA" FromRole="Pig" ToRole="PigPen" />
+          <NavigationProperty Name="SickPigs" Relationship="DoAn_1Model.FK__SickPigs__pig_id__6EF57B66" FromRole="Pig" ToRole="SickPig" />
+          <NavigationProperty Name="Vacine_history" Relationship="DoAn_1Model.FK__Vacine_hi__pig_i__68487DD7" FromRole="Pig" ToRole="Vacine_history" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="wage" Type="Decimal" Precision="14" Scale="0" />
+          <NavigationProperty Name="Users" Relationship="DoAn_1Model.FK__Users__role_id__3C69FB99" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Salary_history">
+          <Key>
+            <PropertyRef Name="salary_history_id" />
+          </Key>
+          <Property Name="salary_history_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="month" Type="DateTime" Precision="0" />
+          <Property Name="bonus" Type="Decimal" Precision="14" Scale="0" />
+          <Property Name="sum_salary" Type="Decimal" Precision="14" Scale="0" />
+          <NavigationProperty Name="User" Relationship="DoAn_1Model.FK__Salary_hi__user___3F466844" FromRole="Salary_history" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="shift_id" />
+          </Key>
+          <Property Name="shift_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="end_time" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="EmployeeShifts" Relationship="DoAn_1Model.FK__EmployeeS__shift__4BAC3F29" FromRole="Shift" ToRole="EmployeeShift" />
+          <NavigationProperty Name="TaskShifts" Relationship="DoAn_1Model.FK__TaskShift__shift__47DBAE45" FromRole="Shift" ToRole="TaskShift" />
+        </EntityType>
+        <EntityType Name="SickPig">
+          <Key>
+            <PropertyRef Name="sickpig_id" />
+          </Key>
+          <Property Name="sickpig_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pig_id" Type="Int32" />
+          <Property Name="disease_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="disease_done" Type="Boolean" />
+          <Property Name="detection_date" Type="DateTime" Precision="0" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pig" Relationship="DoAn_1Model.FK__SickPigs__pig_id__6EF57B66" FromRole="SickPig" ToRole="Pig" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="task_id" />
+          </Key>
+          <Property Name="task_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="task_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TaskShifts" Relationship="DoAn_1Model.FK__TaskShift__task___46E78A0C" FromRole="Task" ToRole="TaskShift" />
+        </EntityType>
+        <EntityType Name="TaskShift">
+          <Key>
+            <PropertyRef Name="task_shift_id" />
+          </Key>
+          <Property Name="task_shift_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="task_id" Type="Int32" />
+          <Property Name="shift_id" Type="Int32" />
+          <Property Name="complete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Shift" Relationship="DoAn_1Model.FK__TaskShift__shift__47DBAE45" FromRole="TaskShift" ToRole="Shift" />
+          <NavigationProperty Name="Task" Relationship="DoAn_1Model.FK__TaskShift__task___46E78A0C" FromRole="TaskShift" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="unit_id" />
+          </Key>
+          <Property Name="unit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="unit_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Foods" Relationship="DoAn_1Model.FK__Foods__unit_id__571DF1D5" FromRole="Unit" ToRole="Food" />
+          <NavigationProperty Name="Medicines" Relationship="DoAn_1Model.FK__Medicines__unit___5441852A" FromRole="Unit" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="birth" Type="DateTime" Precision="0" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="user_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="security_question" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="security_answer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeShifts" Relationship="DoAn_1Model.FK__EmployeeS__assig__4AB81AF0" FromRole="User" ToRole="EmployeeShift" />
+          <NavigationProperty Name="Role" Relationship="DoAn_1Model.FK__Users__role_id__3C69FB99" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Salary_history" Relationship="DoAn_1Model.FK__Salary_hi__user___3F466844" FromRole="User" ToRole="Salary_history" />
+        </EntityType>
+        <EntityType Name="Vacine_history">
+          <Key>
+            <PropertyRef Name="vacine_history_id" />
+          </Key>
+          <Property Name="vacine_history_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vacine_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="vacine_date" Type="DateTime" Precision="7" />
+          <Property Name="require_count" Type="Int32" />
+          <Property Name="vacine_count" Type="Int32" />
+          <Property Name="vacine_done" Type="Boolean" />
+          <Property Name="vacine_duration" Type="Int32" />
+          <Property Name="vacine_next_date" Type="DateTime" annotation:StoreGeneratedPattern="Computed" Precision="7" />
+          <Property Name="pig_id" Type="Int32" />
+          <NavigationProperty Name="Pig" Relationship="DoAn_1Model.FK__Vacine_hi__pig_i__68487DD7" FromRole="Vacine_history" ToRole="Pig" />
+        </EntityType>
+        <Association Name="FK__EmployeeS__assig__4AB81AF0">
+          <End Type="DoAn_1Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.EmployeeShift" Role="EmployeeShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="EmployeeShift">
+              <PropertyRef Name="assigneduser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeS__shift__4BAC3F29">
+          <End Type="DoAn_1Model.Shift" Role="Shift" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.EmployeeShift" Role="EmployeeShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="shift_id" />
+            </Principal>
+            <Dependent Role="EmployeeShift">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events__event_ty__74AE54BC">
+          <End Type="DoAn_1Model.Pig_Events" Role="Pig_Events" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pig_Events">
+              <PropertyRef Name="pig_event_id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="event_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events__pig_id__73BA3083">
+          <End Type="DoAn_1Model.Pig" Role="Pig" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pig">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Foods__unit_id__571DF1D5">
+          <End Type="DoAn_1Model.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Food" Role="Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="unit_id" />
+            </Principal>
+            <Dependent Role="Food">
+              <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FoodTrans__Food___60A75C0F">
+          <End Type="DoAn_1Model.Food" Role="Food" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.FoodTransaction" Role="FoodTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="food_id" />
+            </Principal>
+            <Dependent Role="FoodTransaction">
+              <PropertyRef Name="Food_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FoodTrans__pig_p__5FB337D6">
+          <End Type="DoAn_1Model.PigPen" Role="PigPen" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.FoodTransaction" Role="FoodTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPen">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="FoodTransaction">
+              <PropertyRef Name="pig_pen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicines__unit___5441852A">
+          <End Type="DoAn_1Model.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Medicine" Role="Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="unit_id" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MedicineT__medic__5BE2A6F2">
+          <End Type="DoAn_1Model.Medicine" Role="Medicine" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.MedicineTransaction" Role="MedicineTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="medicine_id" />
+            </Principal>
+            <Dependent Role="MedicineTransaction">
+              <PropertyRef Name="medicine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MedicineT__pig_p__5AEE82B9">
+          <End Type="DoAn_1Model.PigPen" Role="PigPen" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.MedicineTransaction" Role="MedicineTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPen">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="MedicineTransaction">
+              <PropertyRef Name="pig_pen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PenExpens__pen_i__5165187F">
+          <End Type="DoAn_1Model.PigPen" Role="PigPen" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.PenExpense" Role="PenExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPen">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="PenExpense">
+              <PropertyRef Name="pen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PigMeasur__pig_i__6B24EA82">
+          <End Type="DoAn_1Model.Pig" Role="Pig" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.PigMeasurement" Role="PigMeasurement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pig">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="PigMeasurement">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pigs__pen_id__6383C8BA">
+          <End Type="DoAn_1Model.PigPen" Role="PigPen" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Pig" Role="Pig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PigPen">
+              <PropertyRef Name="pen_id" />
+            </Principal>
+            <Dependent Role="Pig">
+              <PropertyRef Name="pen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SickPigs__pig_id__6EF57B66">
+          <End Type="DoAn_1Model.Pig" Role="Pig" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.SickPig" Role="SickPig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pig">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="SickPig">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vacine_hi__pig_i__68487DD7">
+          <End Type="DoAn_1Model.Pig" Role="Pig" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Vacine_history" Role="Vacine_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pig">
+              <PropertyRef Name="pig_id" />
+            </Principal>
+            <Dependent Role="Vacine_history">
+              <PropertyRef Name="pig_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__role_id__3C69FB99">
+          <End Type="DoAn_1Model.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Salary_hi__user___3F466844">
+          <End Type="DoAn_1Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.Salary_history" Role="Salary_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Salary_history">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskShift__shift__47DBAE45">
+          <End Type="DoAn_1Model.Shift" Role="Shift" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.TaskShift" Role="TaskShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="shift_id" />
+            </Principal>
+            <Dependent Role="TaskShift">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskShift__task___46E78A0C">
+          <End Type="DoAn_1Model.Task" Role="Task" Multiplicity="0..1" />
+          <End Type="DoAn_1Model.TaskShift" Role="TaskShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="task_id" />
+            </Principal>
+            <Dependent Role="TaskShift">
+              <PropertyRef Name="task_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DoAn_1ModelStoreContainer" CdmEntityContainer="DoAn_1Entities">
+          <EntitySetMapping Name="EmployeeShifts">
+            <EntityTypeMapping TypeName="DoAn_1Model.EmployeeShift">
+              <MappingFragment StoreEntitySet="EmployeeShifts">
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="assigneduser_id" ColumnName="assigneduser_id" />
+                <ScalarProperty Name="employee_shift_id" ColumnName="employee_shift_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="DoAn_1Model.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="event_next_date" ColumnName="event_next_date" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="event_done" ColumnName="event_done" />
+                <ScalarProperty Name="event_type" ColumnName="event_type" />
+                <ScalarProperty Name="pig_id" ColumnName="pig_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foods">
+            <EntityTypeMapping TypeName="DoAn_1Model.Food">
+              <MappingFragment StoreEntitySet="Foods">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="supplier" ColumnName="supplier" />
+                <ScalarProperty Name="food_name" ColumnName="food_name" />
+                <ScalarProperty Name="food_id" ColumnName="food_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodTransactions">
+            <EntityTypeMapping TypeName="DoAn_1Model.FoodTransaction">
+              <MappingFragment StoreEntitySet="FoodTransactions">
+                <ScalarProperty Name="pig_pen" ColumnName="pig_pen" />
+                <ScalarProperty Name="expense" ColumnName="expense" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
+                <ScalarProperty Name="Food_id" ColumnName="Food_id" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicines">
+            <EntityTypeMapping TypeName="DoAn_1Model.Medicine">
+              <MappingFragment StoreEntitySet="Medicines">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="supplier" ColumnName="supplier" />
+                <ScalarProperty Name="medicine_name" ColumnName="medicine_name" />
+                <ScalarProperty Name="medicine_id" ColumnName="medicine_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicineTransactions">
+            <EntityTypeMapping TypeName="DoAn_1Model.MedicineTransaction">
+              <MappingFragment StoreEntitySet="MedicineTransactions">
+                <ScalarProperty Name="pig_pen" ColumnName="pig_pen" />
+                <ScalarProperty Name="expense" ColumnName="expense" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
+                <ScalarProperty Name="medicine_id" ColumnName="medicine_id" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlyFinancialRecords">
+            <EntityTypeMapping TypeName="DoAn_1Model.MonthlyFinancialRecord">
+              <MappingFragment StoreEntitySet="MonthlyFinancialRecord">
+                <ScalarProperty Name="other_cost" ColumnName="other_cost" />
+                <ScalarProperty Name="employee_cost" ColumnName="employee_cost" />
+                <ScalarProperty Name="food_cost" ColumnName="food_cost" />
+                <ScalarProperty Name="medicine_cost" ColumnName="medicine_cost" />
+                <ScalarProperty Name="pig_sell" ColumnName="pig_sell" />
+                <ScalarProperty Name="record_month" ColumnName="record_month" />
+                <ScalarProperty Name="record_id" ColumnName="record_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PenExpenses">
+            <EntityTypeMapping TypeName="DoAn_1Model.PenExpense">
+              <MappingFragment StoreEntitySet="PenExpense">
+                <ScalarProperty Name="pen_id" ColumnName="pen_id" />
+                <ScalarProperty Name="expense_date" ColumnName="expense_date" />
+                <ScalarProperty Name="expense" ColumnName="expense" />
+                <ScalarProperty Name="pig_sell" ColumnName="pig_sell" />
+                <ScalarProperty Name="expense_description" ColumnName="expense_description" />
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pig_Events">
+            <EntityTypeMapping TypeName="DoAn_1Model.Pig_Events">
+              <MappingFragment StoreEntitySet="Pig_Events">
+                <ScalarProperty Name="event_period" ColumnName="event_period" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="pig_type" ColumnName="pig_type" />
+                <ScalarProperty Name="pig_event_id" ColumnName="pig_event_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PigMeasurements">
+            <EntityTypeMapping TypeName="DoAn_1Model.PigMeasurement">
+              <MappingFragment StoreEntitySet="PigMeasurements">
+                <ScalarProperty Name="date_of_measurement" ColumnName="date_of_measurement" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="pig_id" ColumnName="pig_id" />
+                <ScalarProperty Name="measurement_id" ColumnName="measurement_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PigPens">
+            <EntityTypeMapping TypeName="DoAn_1Model.PigPen">
+              <MappingFragment StoreEntitySet="PigPens">
+                <ScalarProperty Name="pen_name" ColumnName="pen_name" />
+                <ScalarProperty Name="pen_id" ColumnName="pen_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pigs">
+            <EntityTypeMapping TypeName="DoAn_1Model.Pig">
+              <MappingFragment StoreEntitySet="Pigs">
+                <ScalarProperty Name="MonthsOld" ColumnName="MonthsOld" />
+                <ScalarProperty Name="pen_id" ColumnName="pen_id" />
+                <ScalarProperty Name="health_status" ColumnName="health_status" />
+                <ScalarProperty Name="date_of_arrival" ColumnName="date_of_arrival" />
+                <ScalarProperty Name="origin" ColumnName="origin" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="pig_type" ColumnName="pig_type" />
+                <ScalarProperty Name="pig_id" ColumnName="pig_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DoAn_1Model.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="wage" ColumnName="wage" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salary_history">
+            <EntityTypeMapping TypeName="DoAn_1Model.Salary_history">
+              <MappingFragment StoreEntitySet="Salary_history">
+                <ScalarProperty Name="sum_salary" ColumnName="sum_salary" />
+                <ScalarProperty Name="bonus" ColumnName="bonus" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="salary_history_id" ColumnName="salary_history_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shifts">
+            <EntityTypeMapping TypeName="DoAn_1Model.Shift">
+              <MappingFragment StoreEntitySet="Shifts">
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SickPigs">
+            <EntityTypeMapping TypeName="DoAn_1Model.SickPig">
+              <MappingFragment StoreEntitySet="SickPigs">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="detection_date" ColumnName="detection_date" />
+                <ScalarProperty Name="disease_done" ColumnName="disease_done" />
+                <ScalarProperty Name="disease_name" ColumnName="disease_name" />
+                <ScalarProperty Name="pig_id" ColumnName="pig_id" />
+                <ScalarProperty Name="sickpig_id" ColumnName="sickpig_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="DoAn_1Model.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="task_name" ColumnName="task_name" />
+                <ScalarProperty Name="task_id" ColumnName="task_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskShifts">
+            <EntityTypeMapping TypeName="DoAn_1Model.TaskShift">
+              <MappingFragment StoreEntitySet="TaskShifts">
+                <ScalarProperty Name="complete" ColumnName="complete" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="task_id" ColumnName="task_id" />
+                <ScalarProperty Name="task_shift_id" ColumnName="task_shift_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="DoAn_1Model.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DoAn_1Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="security_answer" ColumnName="security_answer" />
+                <ScalarProperty Name="security_question" ColumnName="security_question" />
+                <ScalarProperty Name="user_address" ColumnName="user_address" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="birth" ColumnName="birth" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vacine_history">
+            <EntityTypeMapping TypeName="DoAn_1Model.Vacine_history">
+              <MappingFragment StoreEntitySet="Vacine_history">
+                <ScalarProperty Name="pig_id" ColumnName="pig_id" />
+                <ScalarProperty Name="vacine_next_date" ColumnName="vacine_next_date" />
+                <ScalarProperty Name="vacine_duration" ColumnName="vacine_duration" />
+                <ScalarProperty Name="vacine_done" ColumnName="vacine_done" />
+                <ScalarProperty Name="vacine_count" ColumnName="vacine_count" />
+                <ScalarProperty Name="require_count" ColumnName="require_count" />
+                <ScalarProperty Name="vacine_date" ColumnName="vacine_date" />
+                <ScalarProperty Name="vacine_name" ColumnName="vacine_name" />
+                <ScalarProperty Name="vacine_history_id" ColumnName="vacine_history_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

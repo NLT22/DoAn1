@@ -1,0 +1,432 @@
+﻿<UserControl x:Class="Project1.UserControlProject1.CongViecUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Project1.UserControlProject1"
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             DataContext="{DynamicResource CongViecVM}"
+             Background="#EFF2F7">
+
+    <Grid Margin="30 20 20 20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel >
+            <!--Page Title-->
+            <TextBlock Text="Quản lý công việc"  Style="{StaticResource Heading1}"/>
+
+            <Button Style="{StaticResource addButton}"
+                    Command="{Binding AddNewTaskCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                    <TextBlock Text="Thêm công việc mới"/>
+                </StackPanel>
+            </Button>
+        </DockPanel>
+
+
+        <!--Seprator-->
+        <Separator Height="1" Grid.Row="2" Background="#DAE2EA" Margin="0 -1 0 10"/>
+
+        <!--Tab buttons-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10 0 0">
+            <ToggleButton Style="{StaticResource tabButton}" Content="Quản lý công việc" IsChecked="{Binding IsTaskManagementCheck, Mode=TwoWay}" />
+            <ToggleButton Style="{StaticResource tabButton}" Content="Phân công nhân viên" IsChecked="{Binding IsEmployeeCheck, Mode=TwoWay}" />
+        </StackPanel>
+
+        <!--List View-->
+        <Grid Grid.Row="3" Visibility="{Binding TaskManagementVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Lịch-->
+            <StackPanel Background="#FEFEFE">
+                <!--Year Selection-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20">
+                    <Button Style="{StaticResource button}" Command="{Binding PreviousYearCommand}">
+                        <materialDesign:PackIcon Kind="ArrowLeftDropCircle" Style="{StaticResource angle}" />
+                    </Button>
+
+                    <Button Content="{Binding RecentYearMinus2}" Command="{Binding RYM2Command}" Style="{StaticResource button}"/>
+                    <Button Content="{Binding RecentYearMinus1}" Command="{Binding RYM1Command}" Style="{StaticResource button}"/>
+                    <Button Content="{Binding RecentYear}" Style="{StaticResource button}" Foreground="#007f73" FontSize="24"/>
+                    <Button Content="{Binding RecentYearPlus1}" Command="{Binding RYP1Command}" Style="{StaticResource button}"/>
+                    <Button Content="{Binding RecentYearPlus2}" Command="{Binding RYP2Command}" Style="{StaticResource button}"/>
+
+                    <Button Style="{StaticResource button}" Command="{Binding NextYearCommand}">
+                        <materialDesign:PackIcon Kind="ArrowRightDropCircle" Style="{StaticResource angle}" />
+                    </Button>
+                </StackPanel>
+
+                <!--Month Selection-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="1" Command="{Binding SelectMonthCommand}" CommandParameter="1"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=1}" />
+                    <Button Content="2" Command="{Binding SelectMonthCommand}" CommandParameter="2"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=2}" />
+                    <Button Content="3" Command="{Binding SelectMonthCommand}" CommandParameter="3"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=3}" />
+                    <Button Content="4" Command="{Binding SelectMonthCommand}" CommandParameter="4"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=4}" />
+                    <Button Content="5" Command="{Binding SelectMonthCommand}" CommandParameter="5"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=5}" />
+                    <Button Content="6" Command="{Binding SelectMonthCommand}" CommandParameter="6"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=6}" />
+                    <Button Content="7" Command="{Binding SelectMonthCommand}" CommandParameter="7"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=7}" />
+                    <Button Content="8" Command="{Binding SelectMonthCommand}" CommandParameter="8"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=8}" />
+                    <Button Content="9" Command="{Binding SelectMonthCommand}" CommandParameter="9"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=9}" />
+                    <Button Content="10" Command="{Binding SelectMonthCommand}" CommandParameter="10"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=10}" />
+                    <Button Content="11" Command="{Binding SelectMonthCommand}" CommandParameter="11"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=11}" />
+                    <Button Content="12" Command="{Binding SelectMonthCommand}" CommandParameter="12"
+                                Style="{Binding SelectedMonth, Converter={StaticResource MonthToStyleConverter}, ConverterParameter=12}" />
+
+                </StackPanel>
+
+                <Separator Height="0.8" Background="#CACACA" Margin="30 10"/>
+
+                <TextBlock Text="November" Foreground="#007f73" FontSize="24" TextAlignment="Center" FontWeight="SemiBold" Margin="0 5 0 10"/>
+
+                <Calendar SelectedDate="{Binding SelectedDate, Mode=TwoWay}" 
+                                  DisplayDate="{Binding SelectedDate, Mode=TwoWay}"
+                                  CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}" 
+                                  CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" 
+                                  Style="{DynamicResource CalendarStyle1}"
+                                  />
+            </StackPanel>
+            <!--công việc-->
+            <Grid Grid.Column="1" Background="#007f73">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Titles-->
+
+                <StackPanel Grid.Row="0" Margin="30 10" Orientation="Horizontal">
+                    <TextBlock Text="{Binding SelectedDate.Day}" FontSize="50" Foreground="#FFFFFF"/>
+
+                    <StackPanel Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding VietnameseMonth}" FontSize="24" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding VietnameseDay}" FontSize="14" Foreground="#cce5e3"/>
+                    </StackPanel>
+
+                    <Button Style="{StaticResource buttonBig}" Margin="100 0 5 0"
+                                    Command="{Binding PreviousDayCommand}">
+                        <materialDesign:PackIcon Kind="ArrowLeftDropCircle" Style="{StaticResource angle}" />
+                    </Button>
+
+                    <Button Style="{StaticResource buttonBig}"
+                                    Command="{Binding NextDayCommand}">
+                        <materialDesign:PackIcon Kind="ArrowRightDropCircle" Style="{StaticResource angle}" />
+                    </Button>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1" Text="{Binding CongViecSummarize}" Foreground="#cce5e3" FontSize="16" Margin="35 0 20 0"/>
+
+
+                <!--Add Notes-->
+
+                <Border Grid.Row="2" Background="#EFF2F7" CornerRadius="10" HorizontalAlignment="Center" Width="355" Margin="0 10 0 10" Padding="15 5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Pencil" Width="25" Height="25" Margin="5 10" Foreground="#1a8c81"/>
+                                <ComboBox              
+                                            materialDesign:HintAssist.Hint="Công việc"
+                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                            IsEditable="True"
+                                            ItemsSource="{Binding TaskList}"
+                                            SelectedItem="{Binding TaskSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            DisplayMemberPath="task_name" 
+                                            Width="230"
+                                            />
+                            </StackPanel>
+
+                            <Separator Margin="0 12 0 11" Background="#00665c" Height="0.8"/>
+
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="Bell" Width="25" Height="25" Margin="5 10" Foreground="#1a8c81"/>
+                                <materialDesign:TimePicker
+                                          Width="100"
+                                          Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                          materialDesign:HintAssist.Hint="Bắt đầu"
+                                          SelectedTime="{Binding StartTime}"  
+                                        />
+                                <TextBlock Foreground="#1a8c81" Margin="10 0" FontSize="30"> -</TextBlock>
+                                <materialDesign:TimePicker
+                                          Width="100"
+                                          Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                          materialDesign:HintAssist.Hint="Kết thúc" 
+                                          SelectedTime="{Binding EndTime}"
+                                        />
+                            </StackPanel>
+
+                        </StackPanel>
+                        <Button Grid.Column="1"
+                                      Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                      HorizontalAlignment="Left"
+                                      ToolTip="MaterialDesignFloatingActionMiniButton"
+                                    Command="{Binding NewTaskShiftCommand}"
+                                    >
+                            <materialDesign:PackIcon
+                                    Kind="CalendarPlus"
+                                    Height="24"
+                                    Width="24" />
+                        </Button>
+
+                    </Grid>
+                </Border>
+
+
+                <!--Notes-->
+                <StackPanel Grid.Row="3">
+                    <Separator Height="1" Grid.Row="2" Background="#DAE2EA" Margin="30 10"/>
+                    <ListView Height="240" HorizontalAlignment="Stretch"
+                        Margin="10" Background="Transparent"
+                              ItemsSource="{Binding TaskShiftList}"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                                ScrollViewer.CanContentScroll="True"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                              >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="40 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <ToggleButton
+                                          Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                                          ToolTip="Hoàn thành"
+                                          IsChecked="{Binding complete}"
+                                          Width="30" Height="30"
+                                        Command="{Binding DataContext.CompletedCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding}">
+                                        <materialDesign:PackIcon
+                                            Kind="CheckboxMarkedCircleOutline"
+                                            Height="30"
+                                            Width="30" />
+                                    </ToggleButton>
+
+                                    <StackPanel  Grid.Column="1" Margin="10 0">
+                                        <TextBlock FontSize="16" Foreground="#cce5e3" Text="{Binding Task.task_name}"/>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <materialDesign:PackIcon Kind="Bell" Width="15" Height="15" Foreground="#cce5e3"/>
+                                            <TextBlock FontSize="12" Foreground="#cce5e3" Text="{Binding Shift.start_time,  StringFormat={}{0:HH:mm}}" Margin="8 0"/>
+                                            <TextBlock Margin="0" FontSize="12" Foreground="#cce5e3">-</TextBlock>
+                                            <TextBlock FontSize="12" Foreground="#cce5e3" Text="{Binding Shift.end_time,  StringFormat={}{0:HH:mm}}" Margin="8 0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Button Grid.Column="2" 
+                                            Margin="100 0 0 0"
+                                            HorizontalAlignment="Right"
+                                        Style="{StaticResource cvRemoveButton}"
+                                        Command="{Binding DataContext.DeleteTaskShiftCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding}">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                            <materialDesign:PackIcon Kind="Delete" Style="{StaticResource gridButtonIcon}"/>
+                                            <TextBlock>Xóa</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="3" Visibility="{Binding EmployeeVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Ca làm việc-->
+            <Grid Grid.Column="0" Background="#007f73">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Titles-->
+
+                <StackPanel Grid.Row="0" Margin="30 10" Orientation="Horizontal">
+                    <TextBlock Text="{Binding SelectedDate.Day}" FontSize="50" Foreground="#FFFFFF"/>
+
+                    <StackPanel Grid.Column="1" Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding VietnameseMonth}" FontSize="24" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding VietnameseDay}" FontSize="14" Foreground="#cce5e3"/>
+                    </StackPanel>
+
+                    <Button Style="{StaticResource buttonBig}" Margin="20 0 5 0"
+                                    Command="{Binding PreviousDayCommand}">
+                        <materialDesign:PackIcon Kind="ArrowLeftDropCircle" Style="{StaticResource angle}" />
+                    </Button>
+
+                    <Button Style="{StaticResource buttonBig}"
+                                    Command="{Binding NextDayCommand}">
+                        <materialDesign:PackIcon Kind="ArrowRightDropCircle" Style="{StaticResource angle}" />
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <TextBlock  Text="{Binding CaLamViecSummarize}" Foreground="#cce5e3" FontSize="16" Margin="35 0 20 0"/>
+                    <Separator Height="1" Grid.Row="2" Background="#DAE2EA" Margin="30 10"/>
+
+                </StackPanel>
+
+                <!--Notes-->
+
+                <ListView Height="380" HorizontalAlignment="Stretch"
+                            Margin="10" Background="Transparent"
+                            ItemsSource="{Binding ShiftList}"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                            ScrollViewer.CanContentScroll="True"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Grid.Row="2"
+                            SelectedItem="{Binding ShiftSelectedItem}"
+                          >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="10 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel  Grid.Column="0" Margin="10 0" Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Bell" Width="25" Height="25" Foreground="#cce5e3"/>
+                                    <TextBlock FontSize="20" Foreground="#cce5e3" Text="{Binding start_time,  StringFormat={}{0:HH:mm}}" Margin="8 0"/>
+                                    <TextBlock Margin="0" FontSize="20" Foreground="#cce5e3">-</TextBlock>
+                                    <TextBlock FontSize="20" Foreground="#cce5e3" Text="{Binding end_time,  StringFormat={}{0:HH:mm}}" Margin="8 0"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" 
+                                            HorizontalAlignment="Right"
+                                        Style="{StaticResource cvRemoveButton}"
+                                        Command="{Binding DataContext.DeleteShiftCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding}">
+                                    <materialDesign:PackIcon Kind="Delete" Style="{StaticResource gridButtonIcon}"/>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+            <!--Nhân viên-->
+            <Grid Background="#FEFEFE" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ListView 
+                    Margin="20 0"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.CanContentScroll="True"
+                      VerticalAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      Height="250"
+                      ItemsSource="{Binding EmployeeList}" >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Fullname" DisplayMemberBinding="{Binding full_name}" />
+                            <GridViewColumn Header="Role" DisplayMemberBinding="{Binding Role.role_name}" />
+                            <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding phone}" />
+                            <GridViewColumn Header="Tác vụ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource gridEditButton}"
+                                                Command="{Binding DataContext.AssignCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                CommandParameter="{Binding}">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="AccountPlus" Style="{StaticResource gridButtonIcon}"/>
+                                                <TextBlock>Phân công</TextBlock>
+                                            </StackPanel>
+
+                                        </Button>
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <ListView 
+                    Margin="20 0" Grid.Row="1"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.CanContentScroll="True"
+                      VerticalAlignment="Stretch"
+                      VerticalContentAlignment="Stretch"
+                      Height="250"
+                      ItemsSource="{Binding AsssignedEmployeeList}" >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Fullname" DisplayMemberBinding="{Binding User.full_name}" />
+                            <GridViewColumn Header="Role" DisplayMemberBinding="{Binding User.Role.role_name}" />
+                            <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding User.phone}" />
+                            <GridViewColumn Header="Tác vụ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource gridEditButton}"
+                                Command="{Binding DataContext.UnAssignCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                CommandParameter="{Binding}">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="AccountOff" Style="{StaticResource gridButtonIcon}"/>
+                                                <TextBlock>Hủy bỏ</TextBlock>
+                                            </StackPanel>
+
+                                        </Button>
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

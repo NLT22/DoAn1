@@ -1,0 +1,133 @@
+﻿<Window x:Class="Project1.FeatureWindow.KhoWindow.InforMedicine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project1.FeatureWindow" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        
+        WindowStartupLocation="CenterScreen" 
+        AllowsTransparency="True"
+        Background="Transparent" 
+        WindowStyle="None"
+        Height="600" Width="350"
+        Name="In4Medicine"
+        
+        DataContext="{DynamicResource InforMedicineVM}"
+        >
+    <Border CornerRadius="30" Background="#EFF2F7" BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="30 30 0 0" 
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#007F73">
+                <StackPanel Margin="0 30 0 0">
+                    <TextBlock
+                        FontSize="35" 
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        >Thông tin thuốc</TextBlock>
+                    <Border Margin="0 0 0 -90" Background="#007F73"
+                            Height="100" Width="100"
+                            CornerRadius="80">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                ShadowDepth="4"
+                                Direction="330"
+                                Color="#007F73"
+                                Opacity="0.5"
+                                BlurRadius="4">
+                            </DropShadowEffect>
+                        </Border.Effect>
+                        <materialDesign:PackIcon  
+                        Height="80" Width="80" 
+                        Foreground="White"  
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Kind="MedicalBag"
+                      />
+                    </Border>
+
+                </StackPanel>
+
+            </Border>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="30 40 30 0"  >
+                <TextBlock FontSize="25" FontWeight="Bold">
+                    Thông tin cơ bản
+                </TextBlock>
+                <TextBox
+                    materialDesign:HintAssist.Hint="Tên thuốc"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Name_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+
+                <TextBox
+                    materialDesign:HintAssist.Hint="Nhà cung cấp"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Supplier_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                <TextBox
+                    materialDesign:HintAssist.Hint="Giá thành"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding Price_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                <ComboBox              
+                    materialDesign:HintAssist.Hint="Đơn vị"
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    IsEditable="True"
+                    ItemsSource="{Binding UnitList}"
+                    SelectedItem="{Binding UnitSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="unit_name" />
+                <TextBlock FontSize="25" FontWeight="Bold">
+                    Ghi chú
+                </TextBlock>
+                <TextBox
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Stretch"
+                    MinWidth="220"
+                    AcceptsReturn="True"
+                    VerticalScrollBarVisibility="Auto"
+                    materialDesign:HintAssist.Hint="Thông tin"
+                    Height="80"
+                    Text="{Binding Decription_TB, UpdateSourceTrigger=PropertyChanged}"
+                    >
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0" 
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                <Button
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Width="130"
+                    Margin="20 0"
+                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    Command="{Binding SaveCommand}"   
+                    CommandParameter="{Binding ElementName=In4Medicine}"
+                    >
+                    _Lưu thông tin
+                </Button>
+                <Button
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Width="130"
+                    Margin="20 0"
+                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    Command="{Binding CloseWindowCommand}"
+                    CommandParameter="{Binding ElementName=In4Medicine}"
+                    >
+                    _Hủy bỏ
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
+

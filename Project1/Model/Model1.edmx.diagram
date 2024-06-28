@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7652b7ead043442d898ef5b293d841bc" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="DoAn_1Model.EmployeeShift" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="DoAn_1Model.Event" Width="1.5" PointX="8.25" PointY="18.125" />
+        <EntityTypeShape EntityType="DoAn_1Model.Food" Width="1.5" PointX="3.75" PointY="8.25" />
+        <EntityTypeShape EntityType="DoAn_1Model.FoodTransaction" Width="1.5" PointX="6" PointY="11.25" />
+        <EntityTypeShape EntityType="DoAn_1Model.Medicine" Width="1.5" PointX="0.75" PointY="16.25" />
+        <EntityTypeShape EntityType="DoAn_1Model.MedicineTransaction" Width="1.5" PointX="3" PointY="12.25" />
+        <EntityTypeShape EntityType="DoAn_1Model.MonthlyFinancialRecord" Width="1.5" PointX="7.75" PointY="1" />
+        <EntityTypeShape EntityType="DoAn_1Model.PenExpense" Width="1.5" PointX="3" PointY="24.75" />
+        <EntityTypeShape EntityType="DoAn_1Model.Pig_Events" Width="1.5" PointX="6" PointY="21.5" />
+        <EntityTypeShape EntityType="DoAn_1Model.PigMeasurement" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="DoAn_1Model.PigPen" Width="1.5" PointX="0.75" PointY="12.625" />
+        <EntityTypeShape EntityType="DoAn_1Model.Pig" Width="1.5" PointX="3" PointY="17.625" />
+        <EntityTypeShape EntityType="DoAn_1Model.Role" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="DoAn_1Model.Salary_history" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="DoAn_1Model.Shift" Width="1.5" PointX="3" PointY="28.5" />
+        <EntityTypeShape EntityType="DoAn_1Model.SickPig" Width="1.5" PointX="5.25" PointY="18" />
+        <EntityTypeShape EntityType="DoAn_1Model.Task" Width="1.5" PointX="3" PointY="31.625" />
+        <EntityTypeShape EntityType="DoAn_1Model.TaskShift" Width="1.5" PointX="5.25" PointY="28.375" />
+        <EntityTypeShape EntityType="DoAn_1Model.Unit" Width="1.5" PointX="1.5" PointY="8.75" />
+        <EntityTypeShape EntityType="DoAn_1Model.User" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="DoAn_1Model.Vacine_history" Width="1.5" PointX="5.25" PointY="24.5" />
+        <AssociationConnector Association="DoAn_1Model.FK__EmployeeS__assig__4AB81AF0" />
+        <AssociationConnector Association="DoAn_1Model.FK__EmployeeS__shift__4BAC3F29" />
+        <AssociationConnector Association="DoAn_1Model.FK__Events__event_ty__74AE54BC" />
+        <AssociationConnector Association="DoAn_1Model.FK__Events__pig_id__73BA3083" />
+        <AssociationConnector Association="DoAn_1Model.FK__Foods__unit_id__571DF1D5" />
+        <AssociationConnector Association="DoAn_1Model.FK__FoodTrans__Food___60A75C0F" />
+        <AssociationConnector Association="DoAn_1Model.FK__FoodTrans__pig_p__5FB337D6" />
+        <AssociationConnector Association="DoAn_1Model.FK__Medicines__unit___5441852A" />
+        <AssociationConnector Association="DoAn_1Model.FK__MedicineT__medic__5BE2A6F2" />
+        <AssociationConnector Association="DoAn_1Model.FK__MedicineT__pig_p__5AEE82B9" />
+        <AssociationConnector Association="DoAn_1Model.FK__PenExpens__pen_i__5165187F" />
+        <AssociationConnector Association="DoAn_1Model.FK__PigMeasur__pig_i__6B24EA82" />
+        <AssociationConnector Association="DoAn_1Model.FK__Pigs__pen_id__6383C8BA" />
+        <AssociationConnector Association="DoAn_1Model.FK__SickPigs__pig_id__6EF57B66" />
+        <AssociationConnector Association="DoAn_1Model.FK__Vacine_hi__pig_i__68487DD7" />
+        <AssociationConnector Association="DoAn_1Model.FK__Users__role_id__3C69FB99" />
+        <AssociationConnector Association="DoAn_1Model.FK__Salary_hi__user___3F466844" />
+        <AssociationConnector Association="DoAn_1Model.FK__TaskShift__shift__47DBAE45" />
+        <AssociationConnector Association="DoAn_1Model.FK__TaskShift__task___46E78A0C" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="Project1.UserControlProject1.ThietLapUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Project1.UserControlProject1"
+             mc:Ignorable="d" 
+                          
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
+             DataContext="{DynamicResource ThietLapVM}"
+             Background="#EFF2F7">
+    <Grid Margin="30 20 20 20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--Page Title-->
+        <TextBlock  Grid.Row="0" Grid.ColumnSpan="2"
+            Text="Thiết lập"  Style="{StaticResource Heading1}"/>
+        
+        <!--Seprator-->
+        <Separator Height="1" Grid.Row="1" Grid.ColumnSpan="2" Background="#DAE2EA" Margin="0 10"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10 20">
+            <TextBlock Text="Sự kiện lợn nuôi" FontSize="22" Style="{StaticResource Heading1}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Margin="5 10">Chu kỳ động dục:</TextBlock>
+                    <TextBlock Margin="5 10">Thời gian chờ phối giống:</TextBlock>
+                    <TextBlock Margin="5 10">Thời gian lợn mang thai:</TextBlock>
+                    <TextBlock Margin="5 10">Tuổi của lợn con:</TextBlock>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox
+                        Margin="5"
+                        
+                        Text="{Binding DongDucTB}"
+                        materialDesign:HintAssist.Hint="Chu kỳ (ngày)" />
+                    <TextBox
+                        Margin="5"
+                        Text="{Binding PhoiGiongTB}"
+                        materialDesign:HintAssist.Hint="Chu kỳ (ngày)" />
+                    <TextBox
+                        Margin="5"
+                        Text="{Binding MangThaiTB}"
+                        materialDesign:HintAssist.Hint="Chu kỳ (ngày)" />
+                    <TextBox
+                        Margin="5"
+                        Text="{Binding ThangTuoiTB}"
+                        materialDesign:HintAssist.Hint="Thời gian (tháng)" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Margin="10 20">
+            <TextBlock Text="Lương nhân viên" FontSize="22" Style="{StaticResource Heading1}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Margin="5 10">Nhân viên bán thời gian:</TextBlock>
+                    <TextBlock Margin="5 10">Nhân viên toàn thời gian:</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox
+                Margin="5"
+                Text="{Binding PartTimeTB}"
+                materialDesign:HintAssist.Hint="VND" />
+                    <TextBox
+                Margin="5"
+                Text="{Binding FullTimeTB}"
+                materialDesign:HintAssist.Hint="VND" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Margin="10 20">
+            <TextBlock Text="Quản lý các loại đơn vị" FontSize="22" Margin="0 0 0 10" Style="{StaticResource Heading1}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox
+                    Width="200"
+                    materialDesign:HintAssist.Hint="Đơn vị mới"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                    Text="{Binding NewUnit_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                <Button
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Margin="10 0"
+                    ToolTip="Resource name: MaterialDesignRaisedButton"
+                    Command="{Binding NewUnitCommand}"      
+                    >
+                    _+ Thêm
+                </Button>
+            </StackPanel>
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+              ScrollViewer.CanContentScroll="True"
+              VerticalAlignment="Stretch"
+              VerticalContentAlignment="Stretch"
+              ItemsSource="{Binding Unit_List}" 
+                     Margin="0 0 120 0"
+                    >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding unit_id}" />
+                        <GridViewColumn Header="Tên đơn vị" DisplayMemberBinding="{Binding unit_name}" />
+                        <GridViewColumn Header="Tác vụ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource gridEditButton}"
+                                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                        CommandParameter="{Binding}">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="Delete" Style="{StaticResource gridButtonIcon}"/>
+                                            <TextBlock>Xóa</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        
+        <Button Style="{StaticResource addButton}" Grid.Row="4" Grid.Column="0"
+        Command="{Binding SaveThietLapCommand}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                <TextBlock Text="Lưu thiết lập"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

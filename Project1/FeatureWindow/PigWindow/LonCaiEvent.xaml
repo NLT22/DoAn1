@@ -1,0 +1,376 @@
+﻿<Window x:Class="Project1.FeatureWindow.PigWindow.LonCaiEvent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project1.FeatureWindow.PigWindow"
+                                
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:uc="clr-namespace:Project1.UserControlProject1" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        
+        WindowStartupLocation="CenterScreen" 
+        AllowsTransparency="True"
+        Background="Transparent" 
+        WindowStyle="None"
+        Height="600" Width="900"
+        Name="CaiEvent"
+        
+        DataContext="{DynamicResource LonCaiEventVM}"
+        >
+    <Border CornerRadius="30" Background="#EFF2F7" BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="20 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <ToggleButton Style="{StaticResource tabButton}" Content="Động dục" IsChecked="{Binding IsDongDucChecked, Mode=TwoWay}"/>
+                    <ToggleButton Style="{StaticResource tabButton}" Content="Phối giống" IsChecked="{Binding IsPhoiGiongChecked, Mode=TwoWay}"/>
+                    <ToggleButton Style="{StaticResource tabButton}" Content="Mang thai" IsChecked="{Binding IsMangThaiChecked, Mode=TwoWay}"/>
+                </StackPanel>
+                <Separator Height="1" Background="#DAE2EA" Margin="20 -5 20 0"/>
+            </StackPanel>
+            <Border CornerRadius="30 30 0 0" 
+                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#007F73">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Pig"
+                                             Foreground="White"
+                                             Height="50" Width="50"/>
+                    <TextBlock
+                        FontSize="35" 
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        >Thông tin lợn</TextBlock>
+                </StackPanel>
+            </Border>
+
+           
+            <Grid Grid.Row="2" 
+                  Visibility="{Binding VaccineVisibility}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="7*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="2" Margin="20 0" Orientation="Horizontal" 
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right">
+
+                    <ComboBox 
+                        Margin="10 0"
+                        Padding="0 9"
+                        Width="80"
+                        materialDesign:HintAssist.Hint="ID lợn"
+                        IsEditable="True"
+                        materialDesign:HintAssist.HintOpacity=".26"
+                        ItemsSource="{Binding Pig_List}"
+                        SelectedItem="{Binding PigSelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        DisplayMemberPath="pig_id"
+                            >   
+                    </ComboBox>
+
+                    <DatePicker
+                        materialDesign:HintAssist.Hint="Ngày phát hiện"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                        SelectedDate="{Binding EventDate_TB, UpdateSourceTrigger=PropertyChanged}"    
+                        />
+                    <TextBox
+                        Margin="5 0 5 0"
+                        Width="250"
+                        materialDesign:HintAssist.Hint="Mô tả sự kiện"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        Text="{Binding Decription_TB, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Margin="10 0"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        Command="{Binding NewEventCommand}"   
+                        >
+                        _+ Lưu sự kiện
+                    </Button>
+
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="130"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=CaiEvent}"
+                        >
+                        _Hủy bỏ
+                    </Button>
+                </StackPanel>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="20 0"
+                            VerticalAlignment="Center"
+                                Grid.Column="0"
+                            >
+                        <TextBlock Text="{Binding HeaderText}" Style="{StaticResource Heading1}"></TextBlock>
+                    </StackPanel>
+
+                    <Grid Width="200" Height="50" HorizontalAlignment="Right" 
+                          Grid.Column="1" Margin="20 0">
+
+                        <TextBox 
+                            Style="{StaticResource filterTextBox}"/>
+                        <ComboBox Margin="10 0"
+                            materialDesign:HintAssist.Hint="Chuồng lợn"
+                            IsEditable="True"
+                            materialDesign:HintAssist.HintOpacity=".26"
+                            ItemsSource="{Binding PenManagement_List}"
+                            SelectedItem="{Binding PenManagementItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            DisplayMemberPath="pen_name" 
+                                >
+                        </ComboBox>
+                    </Grid>
+
+                </Grid>
+                
+                <!--Theo dõi động dục-->
+                <Grid 
+                    Visibility="{Binding DongDucVisibility}"
+                    Grid.Row="1" Margin="20 0 20 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                  ScrollViewer.CanContentScroll="True"
+                  VerticalAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  ItemsSource="{Binding PigDongDuc_List}" 
+                  SelectedItem="{Binding PigDongDucItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding pig_id}" />
+                                <GridViewColumn Header="Giống" DisplayMemberBinding="{Binding Pig.pig_type}" />
+                                <GridViewColumn Header="Tháng tuổi" DisplayMemberBinding="{Binding Pig.MonthsOld}" />
+                                <GridViewColumn Header="Dự kiến"  DisplayMemberBinding="{Binding event_next_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                                
+
+                                <GridViewColumn Header="Tác vụ">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Style="{StaticResource gridEditButton}"
+                                                Command="{Binding DataContext.PhoiGiongCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                CommandParameter="{Binding}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Plus" Style="{StaticResource gridButtonIcon}"/>
+                                                        <TextBlock>Phối giống</TextBlock>
+                                                    </StackPanel>
+                                                </Button>
+
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+ScrollViewer.CanContentScroll="True"
+VerticalAlignment="Stretch"
+VerticalContentAlignment="Stretch"
+Grid.Column="1"
+Margin="10 0 0 0"
+ItemsSource="{Binding DongDuc_List}" >
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding event_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                                <GridViewColumn Header="Ghi chú">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="150" Text="{Binding description}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <!--Theo dõi phối giống-->
+                <Grid 
+    Visibility="{Binding PhoiGiongVisibility}"
+    Grid.Row="1" Margin="20 0 20 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+  ScrollViewer.CanContentScroll="True"
+  VerticalAlignment="Stretch"
+  VerticalContentAlignment="Stretch"
+  ItemsSource="{Binding PigPhoiGiong_List}" 
+  SelectedItem="{Binding PigPhoiGiongItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+      >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding pig_id}" />
+                                <GridViewColumn Header="Giống" DisplayMemberBinding="{Binding Pig.pig_type}" />
+                                <GridViewColumn Header="Tháng tuổi" DisplayMemberBinding="{Binding Pig.MonthsOld}" />
+                                <GridViewColumn Header="Dự kiến"  DisplayMemberBinding="{Binding event_next_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+
+                                <GridViewColumn Header="Tác vụ">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Style="{StaticResource gridEditButton}"
+                                Command="{Binding DataContext.MangThaiCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                CommandParameter="{Binding}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Plus" Style="{StaticResource gridButtonIcon}"/>
+                                                        <TextBlock>Mang thai</TextBlock>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Style="{StaticResource gridRemoveButton}"
+                                                        Command="{Binding DataContext.KhongThaiCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                        CommandParameter="{Binding}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Plus" Style="{StaticResource gridButtonIcon}"/>
+                                                        <TextBlock>Không thai</TextBlock>
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                        ScrollViewer.CanContentScroll="True"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Grid.Column="1"
+                        Margin="10 0 0 0"
+                        ItemsSource="{Binding PhoiGiong_List}" >
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding event_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                                <GridViewColumn Header="Ghi chú">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="150" Text="{Binding description}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <!--Theo dõi mang thai-->
+                <Grid 
+    Visibility="{Binding MangThaiVisibility}"
+    Grid.Row="1" Margin="20 0 20 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+  ScrollViewer.CanContentScroll="True"
+  VerticalAlignment="Stretch"
+  VerticalContentAlignment="Stretch"
+  ItemsSource="{Binding PigMangThai_List}" 
+  SelectedItem="{Binding PigMangThaiItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+      >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding pig_id}" />
+                                <GridViewColumn Header="Giống" DisplayMemberBinding="{Binding Pig.pig_type}" />
+                                <GridViewColumn Header="Tháng tuổi" DisplayMemberBinding="{Binding Pig.MonthsOld}" />
+                                <GridViewColumn Header="Dự kiến"  DisplayMemberBinding="{Binding event_next_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+
+                                <GridViewColumn Header="Tác vụ">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Style="{StaticResource gridEditButton}"
+                                                        Command="{Binding DataContext.DeConCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                        CommandParameter="{Binding}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Plus" Style="{StaticResource gridButtonIcon}"/>
+                                                        <TextBlock>Đẻ con</TextBlock>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Style="{StaticResource gridRemoveButton}"
+                                                        Command="{Binding DataContext.SayThaiCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                        CommandParameter="{Binding}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Plus" Style="{StaticResource gridButtonIcon}"/>
+                                                        <TextBlock>Sảy thai</TextBlock>
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView ScrollViewer.VerticalScrollBarVisibility="Auto" 
+    ScrollViewer.CanContentScroll="True"
+    VerticalAlignment="Stretch"
+    VerticalContentAlignment="Stretch"
+    Grid.Column="1"
+    Margin="10 0 0 0"
+    ItemsSource="{Binding MangThai_List}" >
+
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource CustomListViewItem}" />
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding event_date, StringFormat='{}{0:MM/dd/yyyy}'}" />
+                                <GridViewColumn Header="Ghi chú">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="150" Text="{Binding description}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+
+            </Grid>
+
+
+        </Grid>
+    </Border>
+</Window>  
